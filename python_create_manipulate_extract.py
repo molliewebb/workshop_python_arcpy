@@ -9,6 +9,16 @@
 # Washington University in St. Louis
 # molliewebb@wustl.edu
 
+## WORKFLOW
+# This script imports CSV files that contain crime data with locations from St. Louis City.
+# The location data is used to create spatial (points feature classes) data
+# for each CSV file and then uses the Merge tool to combine the feature class
+# and the Project tool to change the spatial reference
+# Next, a tabular join is performed between Census block groups and tabular data
+# from Social Explorer.  Then the script uses an Update Cursor and Select by Location
+# tool to count the number of crimes of different types near each block group.
+# Finally, the attribute table of the resulting feature class is exported to a CSV.
+
 ## REFERENCES
 # EPSG guide - https://spatialreference.org/ref/epsg/
 # SR - http://pro.arcgis.com/en/pro-app/arcpy/classes/spatialreference.htm
