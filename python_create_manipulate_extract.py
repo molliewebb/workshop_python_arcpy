@@ -64,6 +64,7 @@ arcpy.env.workspace = gdb_path
 # Sets variables related to crime csv files
 crime_x_field = "XCoord"
 crime_y_field = "YCoord"
+crime_type_field = "Description"
 # This EPSG code is for State Plane Missouri East
 # See p.7 of the STL Crime FAQ - https://www.slmpd.org/Crime/CrimeDataFrequentlyAskedQuestions.pdf
 crime_spatial_ref = 102696
@@ -205,9 +206,13 @@ near_value_ft = "2640 FEET"
 ####     # Performs a select by location to select all crimes within the specified distance of the parcel
 ####     # ArcPy Help - https://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-layer-by-location.htm
 ####     crimes_selected = arcpy.SelectLayerByLocation_management (crime_scrub_lyr, "WITHIN_A_DISTANCE", bg_temp, near_value_ft)
+####     #Creates a query to isolate only the crimes of the specific type "crime_type"
+####     crime_type_query = crime_type_field + " LIKE '" + crime_type + "%'"
+####     # Performs a select by attribute on the already selected crimes (within the specified distance)
+####     crimes_selected_by_type = arcpy.SelectLayerByAttribute_management(crimes_selected,"SUBSET_SELECTION",crime_type_query)
 ####     # Sets a variable to the count of features selected in the crimes fc
 ####     # ArcPy Help - https://pro.arcgis.com/en/pro-app/tool-reference/data-management/get-count.htm
-####     count = arcpy.GetCount_management(crimes_selected)[0]
+####     count = arcpy.GetCount_management(crimes_selected_by_type)[0]
 ####     # Sets the crime count attribute to the count
 ####     bg[1] = count
 ####     # Performs the update on the feature class
